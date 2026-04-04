@@ -9,6 +9,7 @@ export const POST: RequestHandler = async ({ locals }) => {
   const result = await syncSlackUsers();
   await logAudit(locals.admin.id, "sync", "slack_users", {
     synced: result.synced,
+    active: result.active,
   });
 
   return json(result);
