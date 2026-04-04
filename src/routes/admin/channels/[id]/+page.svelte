@@ -97,15 +97,15 @@
 </script>
 
 <div class="mb-4">
-  <a href="/admin" class="text-sm text-indigo-600 hover:text-indigo-800"
+  <a href="/admin" class="text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300"
     >← Back to channels</a
   >
 </div>
 
 <div class="flex items-center justify-between mb-6">
-  <h1 class="text-2xl font-bold text-gray-900">#{data.channel.name}</h1>
+  <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">#{data.channel.name}</h1>
   <div class="flex items-center gap-3">
-    <span class="text-sm text-gray-500">
+    <span class="text-sm text-gray-500 dark:text-gray-400">
       {data.channel.isGeneral
         ? "General"
         : data.channel.isPrivate
@@ -116,18 +116,18 @@
 </div>
 
 {#if toast}
-  <div class="mb-4 p-3 bg-green-100 text-green-800 rounded-lg text-sm">
+  <div class="mb-4 p-3 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 rounded-lg text-sm">
     {toast}
   </div>
 {/if}
 
 <div class="grid gap-6">
   <!-- Enable/disable card -->
-  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
     <div class="flex items-center justify-between">
       <div>
-        <h2 class="font-semibold text-gray-900">Command enabled</h2>
-        <p class="text-sm text-gray-500 mt-1">
+        <h2 class="font-semibold text-gray-900 dark:text-gray-100">Command enabled</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
           Allow /allaihopa to be used in this channel
         </p>
       </div>
@@ -137,7 +137,7 @@
         aria-label={isEnabled ? "Disable channel" : "Enable channel"}
         class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none {isEnabled
           ? 'bg-indigo-600'
-          : 'bg-gray-300'} disabled:opacity-50"
+          : 'bg-gray-300 dark:bg-gray-600'} disabled:opacity-50"
       >
         <span
           class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform {isEnabled
@@ -149,11 +149,11 @@
   </div>
 
   <!-- Allow all users card -->
-  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
     <div class="flex items-center justify-between">
       <div>
-        <h2 class="font-semibold text-gray-900">Allow all channel members</h2>
-        <p class="text-sm text-gray-500 mt-1">
+        <h2 class="font-semibold text-gray-900 dark:text-gray-100">Allow all channel members</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
           Any member of this channel can use /allaihopa, regardless of the
           allowlist below
         </p>
@@ -164,7 +164,7 @@
         aria-label={allowAllUsers ? "Disable allow all" : "Enable allow all"}
         class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none {allowAllUsers
           ? 'bg-indigo-600'
-          : 'bg-gray-300'} disabled:opacity-50"
+          : 'bg-gray-300 dark:bg-gray-600'} disabled:opacity-50"
       >
         <span
           class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform {allowAllUsers
@@ -176,11 +176,11 @@
   </div>
 
   <!-- Allowlist card -->
-  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
     <div class="flex items-center justify-between mb-4">
       <div>
-        <h2 class="font-semibold text-gray-900">Channel allowlist</h2>
-        <p class="text-sm text-gray-500 mt-1">
+        <h2 class="font-semibold text-gray-900 dark:text-gray-100">Channel allowlist</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
           Users allowed via this channel (in addition to global list)
         </p>
       </div>
@@ -196,15 +196,15 @@
     <input
       bind:value={userSearch}
       placeholder="Search users..."
-      class="w-full max-w-sm mb-3 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      class="w-full max-w-sm mb-3 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
     />
 
     <div
-      class="max-h-80 overflow-y-auto border border-gray-200 rounded-lg divide-y divide-gray-100"
+      class="max-h-80 overflow-y-auto border border-gray-200 dark:border-gray-700 rounded-lg divide-y divide-gray-100 dark:divide-gray-700"
     >
       {#each filteredUsers as user}
         <label
-          class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer"
+          class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
         >
           <input
             type="checkbox"
@@ -213,26 +213,26 @@
             class="h-4 w-4 rounded border-gray-300 text-indigo-600"
           />
           <span class="flex-1 text-sm">
-            <span class="font-medium text-gray-900">{user.displayName}</span>
+            <span class="font-medium text-gray-900 dark:text-gray-100">{user.displayName}</span>
             {#if user.email}
-              <span class="text-gray-500 ml-1">({user.email})</span>
+              <span class="text-gray-500 dark:text-gray-400 ml-1">({user.email})</span>
             {/if}
           </span>
           {#if isGlobal(user.id)}
             <span
-              class="text-xs bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded"
+              class="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-1.5 py-0.5 rounded"
               >Global</span
             >
           {/if}
         </label>
       {:else}
-        <div class="px-4 py-6 text-center text-gray-500 text-sm">
+        <div class="px-4 py-6 text-center text-gray-500 dark:text-gray-400 text-sm">
           No users found
         </div>
       {/each}
     </div>
 
-    <p class="text-xs text-gray-500 mt-2">
+    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
       {selectedUserIds.length} selected · {data.globalUserIds.length} global users
       always allowed
     </p>

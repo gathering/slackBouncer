@@ -62,7 +62,7 @@
 </script>
 
 <div class="flex items-center justify-between mb-6">
-  <h1 class="text-2xl font-bold text-gray-900">Global Allowlist</h1>
+  <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Global Allowlist</h1>
   <div class="flex gap-3">
     <button
       onclick={syncUsers}
@@ -82,28 +82,28 @@
 </div>
 
 {#if toast}
-  <div class="mb-4 p-3 bg-green-100 text-green-800 rounded-lg text-sm">
+  <div class="mb-4 p-3 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 rounded-lg text-sm">
     {toast}
   </div>
 {/if}
 
-<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-  <p class="text-sm text-gray-500 mb-4">
+<div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+  <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
     Users on the global allowlist can use /allaihopa in any enabled channel.
   </p>
 
   <input
     bind:value={userSearch}
     placeholder="Search users..."
-    class="w-full max-w-sm mb-3 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    class="w-full max-w-sm mb-3 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
   />
 
   <div
-    class="max-h-96 overflow-y-auto border border-gray-200 rounded-lg divide-y divide-gray-100"
+    class="max-h-96 overflow-y-auto border border-gray-200 dark:border-gray-700 rounded-lg divide-y divide-gray-100 dark:divide-gray-700"
   >
     {#each filteredUsers as user}
       <label
-        class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer"
+        class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
       >
         <input
           type="checkbox"
@@ -112,25 +112,25 @@
           class="h-4 w-4 rounded border-gray-300 text-indigo-600"
         />
         <span class="flex-1 text-sm flex items-center gap-2">
-          <span class="font-medium text-gray-900">{user.displayName}</span>
+          <span class="font-medium text-gray-900 dark:text-gray-100">{user.displayName}</span>
           {#if user.isUltraRestricted}
-            <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-700">Single-channel guest</span>
+            <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400">Single-channel guest</span>
           {:else if user.isRestricted}
-            <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-700">Multi-channel guest</span>
+            <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400">Multi-channel guest</span>
           {/if}
           {#if user.email}
-            <span class="text-gray-500">({user.email})</span>
+            <span class="text-gray-500 dark:text-gray-400">({user.email})</span>
           {/if}
         </span>
       </label>
     {:else}
-      <div class="px-4 py-6 text-center text-gray-500 text-sm">
+      <div class="px-4 py-6 text-center text-gray-500 dark:text-gray-400 text-sm">
         No users found
       </div>
     {/each}
   </div>
 
-  <p class="text-xs text-gray-500 mt-2">
+  <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
     {selectedUserIds.length} users selected
   </p>
 </div>
