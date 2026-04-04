@@ -118,11 +118,11 @@ export async function getKeycloakUsers(): Promise<
     enabled: boolean;
   }>
 > {
-  // Derive base URL and realm from KEYCLOAK_ISSUER (e.g. https://sso.tg.no/realms/master)
-  const issuerUrl = new URL(env.KEYCLOAK_ISSUER);
+  // Derive base URL and realm from KEYCLOAK_WANNABE_ISSUER (e.g. https://sso.tg.no/realms/wannabe)
+  const issuerUrl = new URL(env.KEYCLOAK_WANNABE_ISSUER);
   const realmMatch = issuerUrl.pathname.match(/^\/realms\/([^/]+)/);
   if (!realmMatch)
-    throw new Error("Could not parse realm from KEYCLOAK_ISSUER");
+    throw new Error("Could not parse realm from KEYCLOAK_WANNABE_ISSUER");
   const realm = realmMatch[1];
   const baseUrl = issuerUrl.origin;
 
@@ -141,8 +141,21 @@ export async function getKeycloakUsers(): Promise<
     throw new Error(`Failed to get Keycloak token: ${tokenRes.status}`);
   const { access_token } = await tokenRes.json();
 
-  // Fetch all users (paginated, max 1000)
-  const usersUrl = `${baseUrl}/admin/realms/${realm}/users?max=1000&briefRepresentation=false`;
+  // Resolve group ID from name
+  const groupName = env.KEYCLOAK_WANNABE_GROUP;
+  const groupsUrl = `${baseUrl}/admin/realms/${realm}/groups?search=${encodeURIComponent(groupName)}&exact=true`;
+  const groupsRes = await fetch(groupsUrl, {
+    headers: { Authorization: `Bearer ${access_token}` },
+  });
+  if (!groupsRes.ok)
+    throw new Error(`Failed to fetch Keycloak groups: ${groupsRes.status}`);
+  const groups: Array<{ id: string; name: string }> = await groupsRes.json();
+  const group = groups.find((g) => g.name === groupName);
+  if (!group)
+    throw new Error(`Keycloak group "${groupName}" not found in realm "${realm}"`);
+
+  // Fetch group members (paginated, max 1000)
+  const usersUrl = `${baseUrl}/admin/realms/${realm}/groups/${group.id}/members?max=1000`;
   const usersRes = await fetch(usersUrl, {
     headers: { Authorization: `Bearer ${access_token}` },
   });

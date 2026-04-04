@@ -15,6 +15,8 @@ export const load: PageServerLoad = async () => {
       id: u.id,
       displayName: u.displayName || u.name,
       email: u.email,
+      isRestricted: u.isRestricted,
+      isUltraRestricted: u.isUltraRestricted,
     })),
     globalUserIds: globalEntries.map((g) => g.userId),
   };

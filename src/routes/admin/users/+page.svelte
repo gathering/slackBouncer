@@ -103,6 +103,7 @@
         <tr>
           <th class="px-4 py-3 text-left font-medium text-gray-600">Name</th>
           <th class="px-4 py-3 text-left font-medium text-gray-600">Email</th>
+          <th class="px-4 py-3 text-left font-medium text-gray-600">Type</th>
           <th class="px-4 py-3 text-left font-medium text-gray-600"
             >In Keycloak</th
           >
@@ -113,6 +114,15 @@
           <tr class="hover:bg-gray-50">
             <td class="px-4 py-3 text-gray-900">{user.name}</td>
             <td class="px-4 py-3 text-gray-500">{user.email ?? "—"}</td>
+            <td class="px-4 py-3">
+              {#if user.isUltraRestricted}
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-700">Single-channel guest</span>
+              {:else if user.isRestricted}
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-700">Multi-channel guest</span>
+              {:else}
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600">Member</span>
+              {/if}
+            </td>
             <td class="px-4 py-3">
               {#if !user.email}
                 <span class="text-gray-400 text-xs">No email</span>
@@ -182,6 +192,9 @@
                 <th class="px-4 py-3 text-left font-medium text-gray-600"
                   >Email</th
                 >
+                <th class="px-4 py-3 text-left font-medium text-gray-600"
+                  >Type</th
+                >
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
@@ -189,6 +202,15 @@
                 <tr class="hover:bg-gray-50">
                   <td class="px-4 py-3 text-gray-900">{user.name}</td>
                   <td class="px-4 py-3 text-gray-500">{user.email}</td>
+                  <td class="px-4 py-3">
+                    {#if user.isUltraRestricted}
+                      <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-700">Single-channel guest</span>
+                    {:else if user.isRestricted}
+                      <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-700">Multi-channel guest</span>
+                    {:else}
+                      <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600">Member</span>
+                    {/if}
+                  </td>
                 </tr>
               {/each}
             </tbody>

@@ -34,6 +34,8 @@ export async function getUsers(): Promise<
     profile?: { display_name?: string; email?: string };
     is_bot?: boolean;
     deleted?: boolean;
+    is_restricted?: boolean;
+    is_ultra_restricted?: boolean;
   }>
 > {
   const results: Array<{
@@ -43,6 +45,8 @@ export async function getUsers(): Promise<
     profile?: { display_name?: string; email?: string };
     is_bot?: boolean;
     deleted?: boolean;
+    is_restricted?: boolean;
+    is_ultra_restricted?: boolean;
   }> = [];
 
   let cursor: string | undefined;

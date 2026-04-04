@@ -1,9 +1,10 @@
 import { prisma } from "$lib/server/db/client";
 import { getUsers, getChannels } from "$lib/server/slack/client";
 
-export async function syncSlackUsers(): Promise<{ synced: number }> {
+export async function syncSlackUsers(): Promise<{ synced: number; active: number }> {
   const users = await getUsers();
   let synced = 0;
+  let active = 0;
 
   for (const u of users) {
     if (u.is_bot || u.id === "USLACKBOT") continue;
@@ -16,6 +17,8 @@ export async function syncSlackUsers(): Promise<{ synced: number }> {
         email: u.profile?.email ?? null,
         isBot: u.is_bot ?? false,
         isDeleted: u.deleted ?? false,
+        isRestricted: u.is_restricted ?? false,
+        isUltraRestricted: u.is_ultra_restricted ?? false,
         syncedAt: new Date(),
       },
       create: {
@@ -26,12 +29,15 @@ export async function syncSlackUsers(): Promise<{ synced: number }> {
         email: u.profile?.email ?? null,
         isBot: u.is_bot ?? false,
         isDeleted: u.deleted ?? false,
+        isRestricted: u.is_restricted ?? false,
+        isUltraRestricted: u.is_ultra_restricted ?? false,
       },
     });
     synced++;
+    if (!u.deleted) active++;
   }
 
-  return { synced };
+  return { synced, active };
 }
 
 export async function syncSlackChannels(): Promise<{ synced: number }> {

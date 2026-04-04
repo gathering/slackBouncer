@@ -26,9 +26,11 @@ model SlackUser {
   realName    String   @map("real_name")
   displayName String   @map("display_name")
   email       String?
-  isBot       Boolean  @default(false) @map("is_bot")
-  isDeleted   Boolean  @default(false) @map("is_deleted")
-  syncedAt    DateTime @default(now()) @map("synced_at")
+  isBot              Boolean  @default(false) @map("is_bot")
+  isDeleted          Boolean  @default(false) @map("is_deleted")
+  isRestricted       Boolean  @default(false) @map("is_restricted")
+  isUltraRestricted  Boolean  @default(false) @map("is_ultra_restricted")
+  syncedAt           DateTime @default(now()) @map("synced_at")
 
   usageEvents          UsageEvent[]
   channelAllowedUsers  ChannelAllowedUser[]

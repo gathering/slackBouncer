@@ -42,13 +42,13 @@
     try {
       const res = await fetch("/api/sync/slack/users", { method: "POST" });
       const json = await res.json();
-      toast = `Synced ${json.synced} users`;
-      setTimeout(() => location.reload(), 1000);
+      toast = `Synced ${json.active} active users (${json.synced} total)`;
+      setTimeout(() => location.reload(), 4000);
     } catch {
       toast = "Sync failed";
     } finally {
       syncing = false;
-      setTimeout(() => (toast = ""), 3000);
+      setTimeout(() => (toast = ""), 5000);
     }
   }
 
@@ -111,10 +111,15 @@
           onchange={() => toggleUser(user.id)}
           class="h-4 w-4 rounded border-gray-300 text-indigo-600"
         />
-        <span class="flex-1 text-sm">
+        <span class="flex-1 text-sm flex items-center gap-2">
           <span class="font-medium text-gray-900">{user.displayName}</span>
+          {#if user.isUltraRestricted}
+            <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-700">Single-channel guest</span>
+          {:else if user.isRestricted}
+            <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-700">Multi-channel guest</span>
+          {/if}
           {#if user.email}
-            <span class="text-gray-500 ml-1">({user.email})</span>
+            <span class="text-gray-500">({user.email})</span>
           {/if}
         </span>
       </label>
