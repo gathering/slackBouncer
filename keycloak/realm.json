@@ -1,0 +1,85 @@
+{
+  "id": "slackbouncer",
+  "realm": "slackbouncer",
+  "enabled": true,
+  "sslRequired": "none",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "groups": [
+    {
+      "name": "slackbouncer",
+      "path": "/slackbouncer",
+      "subGroups": []
+    }
+  ],
+  "users": [
+    {
+      "username": "admin",
+      "email": "admin@example.com",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Admin",
+      "lastName": "User",
+      "credentials": [
+        { "type": "password", "value": "admin", "temporary": false }
+      ],
+      "groups": ["/slackbouncer"]
+    },
+    {
+      "username": "user1",
+      "email": "user1@example.com",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "User",
+      "lastName": "One",
+      "credentials": [
+        { "type": "password", "value": "1234", "temporary": false }
+      ],
+      "groups": ["/slackbouncer"]
+    },
+    {
+      "username": "user2",
+      "email": "user2@example.com",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "User",
+      "lastName": "Two",
+      "credentials": [
+        { "type": "password", "value": "1234", "temporary": false }
+      ],
+      "groups": []
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "slackbouncer",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "63WV5GsURdsgeQcOMFYB6WR8MVDyPTu7",
+      "redirectUris": [
+        "http://localhost:5173/auth/callback"
+      ],
+      "webOrigins": ["http://localhost:5173"],
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "authorizationServicesEnabled": false,
+      "protocolMappers": [
+        {
+          "name": "groups",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-group-membership-mapper",
+          "config": {
+            "full.path": "false",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "groups",
+            "userinfo.token.claim": "true"
+          }
+        }
+      ]
+    }
+  ]
+}
