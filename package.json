@@ -22,7 +22,7 @@
     "infra:reset": "docker compose -f docker-compose.dev.yml down -v && docker compose -f docker-compose.dev.yml up -d && docker compose -f docker-compose.dev.yml exec postgres sh -c 'until pg_isready -U postgres; do sleep 1; done'"
   },
   "devDependencies": {
-    "@sveltejs/kit": "^2.56.1",
+    "@sveltejs/kit": "^2.57.1",
     "@sveltejs/vite-plugin-svelte": "^6.2.4",
     "@tailwindcss/vite": "^4.2.2",
     "@types/uuid": "^10.0.0",
