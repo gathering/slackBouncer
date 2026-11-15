@@ -60,30 +60,7 @@ docker run -p 3000:3000 --env-file .env slackbouncer:latest
 
 ### Kubernetes
 
-1. Copy and fill in secrets:
-
-   ```bash
-   cp k8s/secrets.example.yaml k8s/secrets.yaml
-   # edit k8s/secrets.yaml with real values
-   kubectl apply -f k8s/secrets.yaml
-   ```
-
-2. Run migration job:
-
-   ```bash
-   # Update image in k8s/base/migrate-job.yaml first
-   kubectl apply -f k8s/base/migrate-job.yaml
-   kubectl wait --for=condition=complete job/slackbouncer-migrate
-   ```
-
-3. Deploy application:
-
-   ```bash
-   # Update image in k8s/base/deployment.yaml first
-   kubectl apply -k k8s/base
-   ```
-
-4. Update `host` in `k8s/base/deployment.yaml` Ingress to your domain.
+The image is built and pushed to `ghcr.io/gathering/slackbouncer` by `.github/workflows/build-image.yaml`. The production deployment is in [gathering/sys-k8s-apps](https://github.com/gathering/sys-k8s-apps), `source/slackbouncer`. Apply the schema with `prisma migrate deploy` before the app starts.
 
 ---
 

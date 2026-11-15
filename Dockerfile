@@ -29,5 +29,8 @@ COPY --from=builder /app/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY --from=builder /app/prisma ./prisma
 RUN pnpm install --prod --frozen-lockfile
 
+# The node user of the base image, so the container does not run as root
+USER node
+
 EXPOSE 3000
 CMD ["node", "build"]
