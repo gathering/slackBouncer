@@ -82,7 +82,7 @@ ngrok http 5173
 Copy the `https://xxxx.ngrok-free.app` URL and set it as your Slack app's slash command Request URL:
 
 ```
-https://xxxx.ngrok-free.app/slack/commands
+https://xxxx.ngrok-free.app/slack/commands/allaihopa
 ```
 
 ## 7. First-time Slack setup

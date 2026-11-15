@@ -36,7 +36,7 @@ See [DEVELOPER.md](DEVELOPER.md) for local development setup.
 ### Slack App
 
 1. Go to https://api.slack.com/apps → Create New App
-2. **Slash Commands** → Add `/allaihopa` → Request URL: `https://your-domain/slack/commands`
+2. **Slash Commands** → Add `/allaihopa` → Request URL: `https://your-domain/slack/commands/allaihopa`
 3. **OAuth & Permissions** → Bot Token Scopes: `chat:write`, `channels:read`, `channels:join`, `channels:members:read`, `users:read`, `users:read.email`
 4. Install app to workspace → copy **Bot User OAuth Token** → `SLACK_BOT_TOKEN`
 5. **Basic Information** → copy **Signing Secret** → `SLACK_SIGNING_SECRET`
@@ -98,7 +98,7 @@ The image is built and pushed to `ghcr.io/gathering/slackbouncer` by `.github/wo
 | `GET`     | `/api/stats/usage`                | Usage summary               |
 | `GET`     | `/api/stats/usage/events`         | Usage events (paginated)    |
 | `GET`     | `/api/audit`                      | Audit log (paginated)       |
-| `POST`    | `/slack/commands`                 | Slack slash command handler |
+| `POST`    | `/slack/commands/allaihopa`       | Slack slash command handler |
 | `GET`     | `/healthz`                        | Liveness probe              |
 | `GET`     | `/readyz`                         | Readiness probe             |
 
