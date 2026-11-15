@@ -147,8 +147,13 @@ export async function getKeycloakUsers(): Promise<
   const groupsRes = await fetch(groupsUrl, {
     headers: { Authorization: `Bearer ${access_token}` },
   });
-  if (!groupsRes.ok)
-    throw new Error(`Failed to fetch Keycloak groups: ${groupsRes.status}`);
+  if (!groupsRes.ok) {
+    const detail = (await groupsRes.text().catch(() => "")).slice(0, 300);
+    const wwwAuth = groupsRes.headers.get("www-authenticate") ?? "";
+    throw new Error(
+      `Failed to fetch Keycloak groups: ${groupsRes.status} ${wwwAuth} ${detail}`,
+    );
+  }
   const groups: Array<{ id: string; name: string }> = await groupsRes.json();
   const group = groups.find((g) => g.name === groupName);
   if (!group)

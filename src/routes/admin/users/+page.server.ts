@@ -8,7 +8,10 @@ export const load: PageServerLoad = async () => {
       where: { isBot: false, isDeleted: false },
       orderBy: { displayName: "asc" },
     }),
-    getKeycloakUsers().catch(() => null),
+    getKeycloakUsers().catch((err) => {
+      console.error("Failed to fetch Keycloak users:", err);
+      return null;
+    }),
   ]);
 
   const keycloakEmails = new Set(
